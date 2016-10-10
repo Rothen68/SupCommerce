@@ -24,8 +24,8 @@ public class ShowProductServlet extends HttpServlet {
 		{
 			long id = Long.parseLong(request.getParameter("id"));
 			SupProduct product = SupProductDao.findProductById(id);
-			writer.println("<h2>Product detail</h2>");
-			writer.println("<p>" + product.getId() + " " + product.getName() + " : " + product.getContent() + " => " + product.getPrice() + "<p>");
+			request.setAttribute("product", product);
+			getServletContext().getRequestDispatcher("/showProduct.jsp").forward(request, response);
 		}
 		catch(NumberFormatException e)
 		{

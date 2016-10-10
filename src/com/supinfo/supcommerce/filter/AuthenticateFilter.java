@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -26,16 +27,19 @@ public class AuthenticateFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session =  httpRequest.getSession();
 		
 		String userName = (String) session.getAttribute("username");
 		
 		if(userName == null)
 		{
-			RequestDispatcher rd = request.getRequestDispatcher("/login.html");
-			rd.forward(request, response);
+			httpResponse.sendRedirect(request.getServletContext().getContextPath() +  "/login.html");
 		}
-		chain.doFilter(request, response);
+		else
+		{
+			chain.doFilter(request, response);
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
