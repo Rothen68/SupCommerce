@@ -10,19 +10,19 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <h2>List all products</h2>
 <ul>
-	<%
-		List<SupProduct> list = (List<SupProduct>) request.getAttribute("productsList");
-		for(SupProduct p : list)
-		{
-			%>
-			<li>
-			<%= p.getId() %> <%= p.getName()%> <%= p.getPrice() %>			
-			</li>
-			<%			
-		}
-	%>
+	<c:forEach items="${requestScope.productsList}" var="p">
+		<li>
+			<c:out value="${p.id}"/>  
+			<c:out value="${p.name}"/> 
+			<c:out value="${p.price}"/> 
+			<a href="Auth/removeProduct?id=<c:out value="${p.id}"/>">Delete</a>
+		</li>
+	</c:forEach>
+		
+		
 
 </ul>
 </body>
