@@ -31,5 +31,4 @@ public class ListProductServlet extends HttpServlet {
 		}
 		writer.println("</ul>");
 	}
-
 }

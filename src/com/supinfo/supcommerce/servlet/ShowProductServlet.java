@@ -34,13 +34,11 @@ public class ShowProductServlet extends HttpServlet {
 		catch(UnknownProductException e)
 		{
 			writer.println("<h1>The product id is not found</h1>");
-		}
-		
+		}		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
