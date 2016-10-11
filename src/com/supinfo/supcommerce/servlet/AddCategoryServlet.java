@@ -20,23 +20,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.supinfo.supcommerce.dao.DaoFactory;
 import com.supinfo.supcommerce.entity.Category;
 
 @WebServlet("/Auth/addCategory")
 public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private EntityManagerFactory emf;
-       
-
-	public void init(ServletConfig config) throws ServletException {
-		emf = Persistence.createEntityManagerFactory("persistenceUnit");
-		
-	}
-
-	public void destroy() {
-		emf.close();
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -48,23 +37,8 @@ public class AddCategoryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Category cat = new Category();
 		cat.setName(request.getParameter("name"));
-		
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction t = em.getTransaction();
-		try
-		{
-			t.begin();
-			em.persist(cat);
-			t.commit();
-		}
-		finally
-		{
-			if(t.isActive())
-			{
-				t.rollback();
-			}
-			em.close();
-		}
+		DaoFactory.getCategoryDao().addCategory(cat);
+		response.sendRedirect(request.getServletContext().getContextPath() +  "/listProduct");
 	}
 
 }

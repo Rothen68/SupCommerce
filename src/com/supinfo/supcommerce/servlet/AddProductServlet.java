@@ -9,34 +9,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
+import com.supinfo.supcommerce.dao.DaoFactory;
+import com.supinfo.supcommerce.entity.Product;
 
 
 @WebServlet("/Auth/addProduct")
 public class AddProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
-       
+	       
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/Auth/addProduct.jsp").forward(req, resp);
 	}
-
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
 		float price = Float.parseFloat(request.getParameter("price"));
 		
-		SupProduct p = new SupProduct();
+		Product p = new Product();
 		p.setName(name);
 		p.setContent(content);
 		p.setPrice(price);
-		SupProductDao.addProduct(p);
+		DaoFactory.getProductDao().addProduct(p);
 		long id = p.getId();
 		
 		response.sendRedirect(request.getServletContext().getContextPath() +  "/showProduct?id=" + id);
 	}
-
 }

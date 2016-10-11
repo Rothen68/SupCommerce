@@ -1,11 +1,13 @@
 package com.supinfo.supcommerce.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +19,8 @@ public class Category implements Serializable {
 	private long id;
 	private String name;
 	
+	@OneToMany
+	private Collection<Product> products;
 	
 	
 	public Category(long id, String name) {
@@ -26,6 +30,14 @@ public class Category implements Serializable {
 	}
 	public Category() {
 		super();
+	}
+	
+	
+	public Collection<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
 	}
 	public long getId() {
 		return id;

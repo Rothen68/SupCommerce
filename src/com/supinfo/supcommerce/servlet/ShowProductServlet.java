@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 import com.supinfo.sun.supcommerce.exception.UnknownProductException;
+import com.supinfo.supcommerce.dao.DaoFactory;
+import com.supinfo.supcommerce.entity.Product;
 
 
 @WebServlet("/showProduct")
@@ -23,18 +25,14 @@ public class ShowProductServlet extends HttpServlet {
 		try
 		{
 			long id = Long.parseLong(request.getParameter("id"));
-			SupProduct product = SupProductDao.findProductById(id);
+			Product product = DaoFactory.getProductDao().getProductById(id);
 			request.setAttribute("product", product);
 			getServletContext().getRequestDispatcher("/showProduct.jsp").forward(request, response);
 		}
 		catch(NumberFormatException e)
 		{
 			writer.println("<h1>The product id format is incorrect</h1>");
-		}
-		catch(UnknownProductException e)
-		{
-			writer.println("<h1>The product id is not found</h1>");
-		}		
+		}	
 	}
 
 

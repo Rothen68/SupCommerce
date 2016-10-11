@@ -1,4 +1,4 @@
-<%@page import="com.supinfo.sun.supcommerce.bo.SupProduct"%>
+<%@page import="com.supinfo.supcommerce.entity.Product"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,7 +10,7 @@
 <body>
 <%@ include file="header.jsp" %>
 
-<%SupProduct p = (SupProduct) request.getAttribute("product"); %>
+<%Product p = (Product) request.getAttribute("product"); %>
 
 <h2>Product detail</h2>
 	<table>
