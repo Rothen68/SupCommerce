@@ -9,6 +9,7 @@
 	%>
 		<li><a href="listProduct">List all products</a></li>
 		<li><a href="Auth/addProduct">Add a product</a></li>
+		<li><a href="Auth/addCategory">Add a category</a></li>
 		<li><a href="logout">Logout</a></li>
 	<%} %>
 </ul>
